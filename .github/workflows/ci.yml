@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+# Permissions block 1 (Workflow level)
 permissions:
   contents: read
   pages: write
@@ -22,12 +23,18 @@ jobs:
     uses: ./.github/workflows/deploy-pages.yml
     with:
       node-version: "24"
+    # Permissions block 2 (Job level)
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
   comment:
     name: Comment on PR
     if: always()
     needs: github-pages
     runs-on: ubuntu-latest
+    # Permissions block 3 (Job level)
     permissions:
       pull-requests: write
     steps:
